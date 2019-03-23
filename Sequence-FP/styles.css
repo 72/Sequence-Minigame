@@ -1,0 +1,49 @@
+body {
+  font-family: sans-serif;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 330px;
+  margin: 100px auto;
+  /* background-color: pink; */
+}
+
+#spinButton {
+  margin: 0 auto;
+  text-align: center;
+  width: 90px;
+  height: 30px;
+  padding: 12px 0 0 0;
+  font-size: 1em;
+  border: 1px solid #999;
+  border-radius: 40px;
+  color: #666;
+  cursor: pointer;
+}
+
+#spinButton:hover {
+  border-color: rgb(25, 153, 238);
+  background-color: rgb(25, 153, 238);
+  color: white;
+}
+
+.tile {
+  width: 100px;
+  height: 100px;
+  display: block;
+  opacity: 1;
+  margin: 5px;
+  overflow: visible;
+  pointer-events: auto;
+  transform-origin: 50% 50%;
+  perspective-origin: 50% 50%;
+  /* transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) skew(0deg, 0deg)
+    skewX(0deg) skewY(0deg) translateZ(0px) rotateX(0deg) rotateY(0deg)
+    rotateZ(0deg) translateZ(0px); */
+  background-color: rgb(25, 153, 238);
+  transform-style: preserve-3d;
+  border-radius: 6px;
+  cursor: pointer;
+}
