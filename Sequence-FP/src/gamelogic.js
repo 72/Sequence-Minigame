@@ -3,8 +3,8 @@ import * as animate from "./animations.js";
 
 let sequence = [];
 let initialSequenceLength = 2;
-let level = 0;
-let stepInSequence = 0;
+// let level = 0;
+// let stepInSequence = 0;
 let tiles = [];
 let numberOfTiles = 9;
 
