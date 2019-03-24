@@ -1,4 +1,5 @@
 import * as animate from "./animations.js";
+import * as game from "./gamelogic.js";
 
 export default function createTile(index) {
 	let tile = document.createElement("div");
@@ -7,23 +8,12 @@ export default function createTile(index) {
 
 	function bump() {
 		animate.contract(tile, true);
-		setTimeout(animate.expand, 260, tile);
+		setTimeout(animate.toDefault, 260, tile);
 	}
 
 	tile.addEventListener("click", function(e) {
 		e.preventDefault();
 		bump();
-		// toDo
-		// bump(item);
-		// Effect: nextStageAnim
-		//animateNextStage();
-		// // Effect: rotate board
-		// rotateBoard();
-		// Effect: stagger bump animation.
-		// for (let i = 0; i < tiles.length; i++) {
-		//   // bump(tiles[i]);
-		//   setTimeout(bump, 100 * i, tiles[i]);
-		// }
 	});
 
 	return tile;

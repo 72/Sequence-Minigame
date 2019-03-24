@@ -1,22 +1,15 @@
-import * as animate from "./animations.js";
-import createTile from "./tile.js";
+
+import * as game from "./gamelogic.js";
 
 let board = document.getElementById("board");
-let spinButton = document.getElementById("spinButton");
-let tiles = [];
-let numberOfTiles = 9;
+let startButton = document.getElementById("startButton");
 
 function INIT() {
-	for (let i = 0; i < numberOfTiles; i++) {
-		let tile = createTile(i);
-		board.appendChild(tile);
-	}
+	game.createBoard(board);
 
-	tiles = document.getElementsByClassName("tile");
-
-	spinButton.addEventListener("click", function(e) {
+	startButton.addEventListener("click", function(e) {
 		e.preventDefault();
-		animate.spin(board, tiles);
+		game.startGame();
 	});
 }
 

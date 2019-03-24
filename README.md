@@ -2,6 +2,12 @@
 
 This is my playground to test and learn different JS paradigms by applying them to a mini game project.
 
+To install and run any of these projects, go to the desired folder and type
+
+```
+npm install
+npm run serve
+```
 
 ### Folders:
 

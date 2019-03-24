@@ -10,7 +10,7 @@ body {
   /* background-color: pink; */
 }
 
-#spinButton {
+#startButton {
   margin: 0 auto;
   text-align: center;
   width: 90px;
@@ -23,7 +23,7 @@ body {
   cursor: pointer;
 }
 
-#spinButton:hover {
+#startButton:hover {
   border-color: rgb(25, 153, 238);
   background-color: rgb(25, 153, 238);
   color: white;

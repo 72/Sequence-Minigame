@@ -1,6 +1,8 @@
+import * as game from "./gamelogic.js";
+
 let rotation = 0;
 
-export function expand(item) {
+export function toDefault(item) {
 	item.style.transition = "all 0.25s cubic-bezier(0.25, .1, 0.25, 1.35)";
 	item.style.backgroundColor = "rgb(25, 153, 238)";
 	item.style.transform = "scale(1)";
@@ -20,9 +22,9 @@ export function rotateBoard(board) {
 	board.style.transform = "rotate(" + rotation + "deg)";
 }
 
-export function staggeredExpand(tiles) {
+export function staggeredDefault(tiles) {
 	for (let i = 0; i < tiles.length; i++) {
-		setTimeout(expand, 60 * i, tiles[i]);
+		setTimeout(toDefault, 60 * i, tiles[i]);
 	}
 }
 
@@ -31,5 +33,13 @@ export function spin(board, tiles) {
 		contract(tiles[i]);
 	}
 	setTimeout(rotateBoard, 150, board);
-	setTimeout(staggeredExpand, 1000, tiles);
+	setTimeout(staggeredDefault, 1000, tiles);
+}
+
+export function highlightTile(item){
+	item.style.transition = "all 0.33s cubic-bezier(0.25, .1, 0.25, 1.35)";
+	// item.style.backgroundColor = "rgb(86, 204, 242)";
+	item.style.backgroundColor = "rgb(155, 81, 224)";
+	item.style.transform = "scale(1.2)";
+	setTimeout(toDefault, 250, item);
 }
