@@ -53,33 +53,11 @@ function buildSequence(){
 	}
 }
 
-
-
 function moveToNextLevel(){
 	level++;
 }
 
-// export function addStep(){
-// 	stepInSequence++;
-// }
-
-// export function getItemInSequence(number){
-// 	return sequence[number];
-// }
-
-// export function getSequenceLength(){
-// 	return sequence.length;
-// }
-
-// export function getTilesLength(){
-// 	return tiles.length;
-// }
-
-// export function getTile(number){
-// 	return tiles[number];
-// }
-
-export function tileClicked(tile){
+function tileClicked(tile){
 	animate.contract(tile, true);
 	setTimeout(animate.toDefault, 260, tile);
 }
@@ -90,6 +68,11 @@ export function createBoard(board){
 		tile.style.transform = "scale(0)";
 		board.appendChild(tile);
 		tiles.push(tile);
+
+		tile.addEventListener("click", function(e) {
+			e.preventDefault();
+			tileClicked(this);
+		});
 	}
 }
 
