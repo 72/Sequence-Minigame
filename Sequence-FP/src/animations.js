@@ -1,5 +1,3 @@
-import * as game from "./gamelogic.js";
-
 let rotation = 0;
 
 export function toDefault(item) {

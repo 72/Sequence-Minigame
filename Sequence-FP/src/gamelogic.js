@@ -9,23 +9,6 @@ let tiles = [];
 let numberOfTiles = 9;
 
 
-export function createBoard(board){
-	for (let i = 0; i < numberOfTiles; i++) {
-		let tile = createTile(i);
-		tile.style.transform = "scale(0)";
-		board.appendChild(tile);
-		tiles.push(tile);
-	}
-}
-
-export function startGame(){
-	for (let i = 0; i < tiles.length; i++) {
-		setTimeout(animate.toDefault, 100 * i, tiles[i]);
-	}
-	setTimeout(buildSequence, 500);
-	setTimeout(showChallenge, 1250);
-}
-
 function showChallenge(){
 	moveToNextLevel();
 
@@ -37,9 +20,6 @@ function showChallenge(){
 		}, 600 * i);
 	}
 }
-
-
-
 
 function getRandomNumer(){
 	// hero number
@@ -67,34 +47,56 @@ function getRandomNumer(){
 	}
 }
 
-export function buildSequence(){
+function buildSequence(){
 	for(let i = 0; i < initialSequenceLength; i++){
 		sequence.push(getRandomNumer());
 	}
-	// console.log(sequence);
 }
 
-export function addStep(){
-	stepInSequence++;
-}
 
-export function moveToNextLevel(){
+
+function moveToNextLevel(){
 	level++;
 }
 
-export function getItemInSequence(number){
-	return sequence[number];
+// export function addStep(){
+// 	stepInSequence++;
+// }
+
+// export function getItemInSequence(number){
+// 	return sequence[number];
+// }
+
+// export function getSequenceLength(){
+// 	return sequence.length;
+// }
+
+// export function getTilesLength(){
+// 	return tiles.length;
+// }
+
+// export function getTile(number){
+// 	return tiles[number];
+// }
+
+export function tileClicked(tile){
+	animate.contract(tile, true);
+	setTimeout(animate.toDefault, 260, tile);
 }
 
-export function getSequenceLength(){
-	return sequence.length;
+export function createBoard(board){
+	for (let i = 0; i < numberOfTiles; i++) {
+		let tile = createTile(i);
+		tile.style.transform = "scale(0)";
+		board.appendChild(tile);
+		tiles.push(tile);
+	}
 }
 
-export function getTilesLength(){
-	return tiles.length;
+export function startGame(){
+	for (let i = 0; i < tiles.length; i++) {
+		setTimeout(animate.toDefault, 100 * i, tiles[i]);
+	}
+	setTimeout(buildSequence, 500);
+	setTimeout(showChallenge, 1250);
 }
-
-export function getTile(number){
-	return tiles[number];
-}
-
