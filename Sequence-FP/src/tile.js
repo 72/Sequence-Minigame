@@ -1,7 +1,9 @@
 export default function createTile(index) {
+	// Create Tile
 	let tile = document.createElement("div");
 	tile.className = "tile";
-	tile.setAttribute("name", "tile" + index);
+	tile.setAttribute("data-name", "tile" + index);
 
 	return tile;
+	// ToDo: track clicked state here
 }

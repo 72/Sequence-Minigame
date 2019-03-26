@@ -3,11 +3,11 @@ import * as animate from "./animations.js";
 
 let sequence = [];
 let initialSequenceLength = 2;
-// let level = 0;
-// let stepInSequence = 0;
+let level = 0;
 let tiles = [];
 let numberOfTiles = 9;
-
+let stepToCheck = 0;
+let clickTriggered = false;
 
 function showChallenge(){
 	moveToNextLevel();
@@ -58,8 +58,26 @@ function moveToNextLevel(){
 }
 
 function tileClicked(tile){
-	animate.contract(tile, true);
-	setTimeout(animate.toDefault, 260, tile);
+	// ToDo: Track clicks in the tile instance, not here.
+	if(clickTriggered == false){
+		clickTriggered = true;
+		console.log(sequence[stepToCheck]);
+		let tileNumber = tile.dataset.name.slice(-1);
+		if(sequence[stepToCheck] == tileNumber){
+			animate.contract(tile, true);
+			// setTimeout(animate.toDefault, 260, tile);
+			stepToCheck++;
+		} else {
+			animate.showError(tile);
+			// setTimeout(animate.toDefault, 260, tile);
+		}
+		setTimeout(function(){
+			animate.toDefault(tile);
+			setTimeout(function(){
+				clickTriggered = false;
+			}, 300)
+		}, 260);
+	}
 }
 
 export function createBoard(board){
