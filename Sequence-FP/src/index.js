@@ -1,4 +1,3 @@
-
 import * as game from "./gamelogic.js";
 
 let board = document.getElementById("board");

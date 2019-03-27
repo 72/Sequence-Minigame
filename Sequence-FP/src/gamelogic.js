@@ -1,4 +1,4 @@
-import Tile from "./tile.js";
+import Tile from "./Tile.js";
 import * as animate from "./animations.js";
 
 let sequence = [];
@@ -15,7 +15,7 @@ function showChallenge(){
 	for (let i = 0; i < sequence.length; i++) {
 		setTimeout(function(){
 			let currentStep = sequence[i];
-			let currentTile = tiles[currentStep];
+			let currentTile = tiles[currentStep].div;
 			animate.highlightTile(currentTile);
 		}, 600 * i);
 	}
@@ -25,7 +25,7 @@ function getRandomNumer(){
 	// hero number
 	let random = (Math.floor(Math.random()*9));
 	// first time
-	if(sequence[sequence.length-1] === undefined){
+	if(sequence[sequence.length-1] == undefined){
 		return random;
 	}
 	// subsequent times
@@ -34,7 +34,7 @@ function getRandomNumer(){
 		// if previous number is the same...
 		if(random == sequence[sequence.length-1]){
 			// check whether it is also the same as the number before that one.
-			if(random == sequence[sequence.length-1]){
+			if(random == sequence[sequence.length-2]){
 				getRandomNumer();
 			} else {
 				return random;
@@ -51,6 +51,7 @@ function buildSequence(){
 	for(let i = 0; i < initialSequenceLength; i++){
 		sequence.push(getRandomNumer());
 	}
+	// console.log(sequence);
 }
 
 function moveToNextLevel(){
@@ -59,7 +60,19 @@ function moveToNextLevel(){
 
 function tileClicked(tile){
 	// ToDo: Track clicks in the tile instance, not here.
-	console.log(Tile.)
+	//console.log(tile)
+	let tileNumber = tile.dataset.name.slice(-1);
+	let currentTile = tiles[tileNumber];
+	//console.log(currentTile.id);
+
+	if(currentTile.clickTriggered == false){
+		currentTile.clickTriggered = true;
+		if(sequence[stepToCheck] == currentTile.id){
+			animate.contract(tile, true);
+			setTimeout(animate.toDefault, 260, tile);
+			stepToCheck++;
+		}
+	}
 
 	// if(clickTriggered == false){
 	// 	clickTriggered = true;
@@ -84,12 +97,12 @@ function tileClicked(tile){
 
 export function createBoard(board){
 	for (let i = 0; i < numberOfTiles; i++) {
-		let tile = Tile.create(i);
-		
-		board.appendChild(tile);
+		let tile = Tile(i);
+
+		board.appendChild(tile.div);
 		tiles.push(tile);
 
-		tile.addEventListener("click", function(e) {
+		tile.div.addEventListener("click", function(e) {
 			e.preventDefault();
 			tileClicked(this);
 		});
@@ -98,7 +111,7 @@ export function createBoard(board){
 
 export function startGame(){
 	for (let i = 0; i < tiles.length; i++) {
-		setTimeout(animate.toDefault, 100 * i, tiles[i]);
+		setTimeout(animate.toDefault, 100 * i, tiles[i].div);
 	}
 	setTimeout(buildSequence, 500);
 	setTimeout(showChallenge, 1250);
