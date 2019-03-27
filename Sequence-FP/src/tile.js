@@ -1,9 +1,33 @@
-export default function createTile(index) {
-	// Create Tile
-	let tile = document.createElement("div");
-	tile.className = "tile";
-	tile.setAttribute("data-name", "tile" + index);
+export default function Tile() {
 
-	return tile;
+	let tile = {
+		clickTriggered = false;
+	}
+	let tileDiv = null;
+
+	function create(index){
+		createDiv(index);
+	}
+
+
+	function createDiv(index){
+		tileDiv = document.createElement("div");
+		tileDiv.className = "tile";
+		tileDiv.setAttribute("data-name", "tile" + index);
+		tileDiv.style.transform = "scale(0)";
+	}
+
+	function getTileDiv(){
+		return tileDiv;
+	}
+
+	function checkClickedState(){
+		return clickTriggered;
+	}
+
+	function toggleClickedState(){
+		clickTriggered = !clickTriggered;
+	}
+
 	// ToDo: track clicked state here
 }

@@ -1,4 +1,4 @@
-import createTile from "./tile.js";
+import Tile from "./tile.js";
 import * as animate from "./animations.js";
 
 let sequence = [];
@@ -59,31 +59,33 @@ function moveToNextLevel(){
 
 function tileClicked(tile){
 	// ToDo: Track clicks in the tile instance, not here.
-	if(clickTriggered == false){
-		clickTriggered = true;
-		console.log(sequence[stepToCheck]);
-		let tileNumber = tile.dataset.name.slice(-1);
-		if(sequence[stepToCheck] == tileNumber){
-			animate.contract(tile, true);
-			// setTimeout(animate.toDefault, 260, tile);
-			stepToCheck++;
-		} else {
-			animate.showError(tile);
-			// setTimeout(animate.toDefault, 260, tile);
-		}
-		setTimeout(function(){
-			animate.toDefault(tile);
-			setTimeout(function(){
-				clickTriggered = false;
-			}, 300)
-		}, 260);
-	}
+	console.log(Tile.)
+
+	// if(clickTriggered == false){
+	// 	clickTriggered = true;
+	// 	console.log(sequence[stepToCheck]);
+	// 	let tileNumber = tile.dataset.name.slice(-1);
+	// 	if(sequence[stepToCheck] == tileNumber){
+	// 		animate.contract(tile, true);
+	// 		// setTimeout(animate.toDefault, 260, tile);
+	// 		stepToCheck++;
+	// 	} else {
+	// 		animate.showError(tile);
+	// 		// setTimeout(animate.toDefault, 260, tile);
+	// 	}
+	// 	setTimeout(function(){
+	// 		animate.toDefault(tile);
+	// 		setTimeout(function(){
+	// 			clickTriggered = false;
+	// 		}, 300)
+	// 	}, 260);
+	// }
 }
 
 export function createBoard(board){
 	for (let i = 0; i < numberOfTiles; i++) {
-		let tile = createTile(i);
-		tile.style.transform = "scale(0)";
+		let tile = Tile.create(i);
+		
 		board.appendChild(tile);
 		tiles.push(tile);
 
