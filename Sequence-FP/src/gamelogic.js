@@ -58,41 +58,30 @@ function moveToNextLevel(){
 	level++;
 }
 
-function tileClicked(tile){
-	// ToDo: Track clicks in the tile instance, not here.
-	//console.log(tile)
-	let tileNumber = tile.dataset.name.slice(-1);
-	let currentTile = tiles[tileNumber];
-	//console.log(currentTile.id);
+function setToDefault(tileDiv, tile){
+	setTimeout(animate.toDefault, 260, tileDiv);
+	setTimeout(function(){
+		tile.clickTriggered = false;
+	}, 550);
+}
 
-	if(currentTile.clickTriggered == false){
-		currentTile.clickTriggered = true;
-		if(sequence[stepToCheck] == currentTile.id){
-			animate.contract(tile, true);
-			setTimeout(animate.toDefault, 260, tile);
+function tileClicked(tileDiv){
+	//console.log(tile)
+	let tileNumber = tileDiv.dataset.name.slice(-1);
+	let _tile = tiles[tileNumber];
+
+	if(_tile.clickTriggered == false){
+		_tile.clickTriggered = true;
+
+		if(sequence[stepToCheck] == _tile.id){
+			animate.clicked(tileDiv, true);
+			setToDefault(tileDiv, _tile);
 			stepToCheck++;
+		} else {
+			animate.showError(tileDiv);
+			setToDefault(tileDiv, _tile);
 		}
 	}
-
-	// if(clickTriggered == false){
-	// 	clickTriggered = true;
-	// 	console.log(sequence[stepToCheck]);
-	// 	let tileNumber = tile.dataset.name.slice(-1);
-	// 	if(sequence[stepToCheck] == tileNumber){
-	// 		animate.contract(tile, true);
-	// 		// setTimeout(animate.toDefault, 260, tile);
-	// 		stepToCheck++;
-	// 	} else {
-	// 		animate.showError(tile);
-	// 		// setTimeout(animate.toDefault, 260, tile);
-	// 	}
-	// 	setTimeout(function(){
-	// 		animate.toDefault(tile);
-	// 		setTimeout(function(){
-	// 			clickTriggered = false;
-	// 		}, 300)
-	// 	}, 260);
-	// }
 }
 
 export function createBoard(board){

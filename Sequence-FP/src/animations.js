@@ -22,11 +22,14 @@ export function showError(item) {
 	item.style.transform = "scale(0.45)";
 }
 
-export function contract(item, withColor = false) {
+export function clicked(item) {
 	item.style.transition = "all 0.33s cubic-bezier(0.25, .1, 0.25, 1)";
-	if (withColor === true) {
-		item.style.backgroundColor = colors.pink;
-	}
+	item.style.backgroundColor = colors.pink;
+	item.style.transform = "scale(0.45)";
+}
+
+export function contract(item) {
+	item.style.transition = "all 0.33s cubic-bezier(0.25, .1, 0.25, 1)";
 	item.style.transform = "scale(0.45)";
 }
 
