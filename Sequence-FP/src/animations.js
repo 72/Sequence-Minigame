@@ -9,6 +9,7 @@ let colors = {
 	orange: "rgb(242,153,74)",
 	yellow: "rgb(242,201,76)"
 };
+let colorsArray = Object.values(colors);
 
 export function toDefault(item) {
 	item.style.transition = "all 0.25s cubic-bezier(0.25, .1, 0.25, 1.35)";
@@ -23,8 +24,10 @@ export function showError(item) {
 }
 
 export function clicked(item) {
+	//let randomColor = colorsArray[(colorsArray.length * Math.random() << 0)];
 	item.style.transition = "all 0.33s cubic-bezier(0.25, .1, 0.25, 1)";
 	item.style.backgroundColor = colors.pink;
+	//item.style.backgroundColor = randomColor;
 	item.style.transform = "scale(0.45)";
 }
 

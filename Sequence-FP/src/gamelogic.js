@@ -7,7 +7,7 @@ let level = 0;
 let tiles = [];
 let numberOfTiles = 9;
 let stepToCheck = 0;
-let clickTriggered = false;
+
 
 function showChallenge(){
 	moveToNextLevel();
@@ -65,21 +65,31 @@ function setToDefault(tileDiv, tile){
 	}, 550);
 }
 
+function correctOption(tileDiv, _tile){
+	animate.clicked(tileDiv);
+	setToDefault(tileDiv, _tile);
+	stepToCheck++;
+}
+
+function wrongOption(tileDiv, _tile){
+	animate.showError(tileDiv);
+	setToDefault(tileDiv, _tile);
+}
+
+
 function tileClicked(tileDiv){
-	//console.log(tile)
 	let tileNumber = tileDiv.dataset.name.slice(-1);
 	let _tile = tiles[tileNumber];
 
+	// Click control
 	if(_tile.clickTriggered == false){
 		_tile.clickTriggered = true;
 
+		// If this is the correct step
 		if(sequence[stepToCheck] == _tile.id){
-			animate.clicked(tileDiv, true);
-			setToDefault(tileDiv, _tile);
-			stepToCheck++;
+			correctOption(tileDiv, _tile);
 		} else {
-			animate.showError(tileDiv);
-			setToDefault(tileDiv, _tile);
+			wrongOption(tileDiv, _tile);
 		}
 	}
 }
