@@ -3,15 +3,14 @@ import * as animate from "./animations.js";
 
 let sequence = [];
 let initialSequenceLength = 2;
-let level = 0;
+let level = 1;
 let tiles = [];
 let numberOfTiles = 9;
 let stepToCheck = 0;
+let gameBoard = null;
 
 
 function showChallenge(){
-	moveToNextLevel();
-
 	for (let i = 0; i < sequence.length; i++) {
 		setTimeout(function(){
 			let currentStep = sequence[i];
@@ -54,9 +53,33 @@ function buildSequence(){
 	// console.log(sequence);
 }
 
+function disableClicks(){
+	tiles.map(tile => {
+		tile.clickTriggered = true;
+	})
+}
+
+function enableClicks(){
+	tiles.map(tile => {
+		tile.clickTriggered = false;
+	})
+}
+
+
 function moveToNextLevel(){
 	level++;
+	setTimeout(function(){
+		disableClicks();
+		animate.spin(gameBoard);
+		stepToCheck = 0;
+		sequence.push(getRandomNumer());
+		setTimeout(function(){
+			showChallenge();
+			setTimeout(enableClicks, (sequence.length * 550));
+		}, 2000);
+	}, 600);
 }
+
 
 function setToDefault(tileDiv, tile){
 	setTimeout(animate.toDefault, 260, tileDiv);
@@ -65,10 +88,17 @@ function setToDefault(tileDiv, tile){
 	}, 550);
 }
 
+
 function correctOption(tileDiv, _tile){
 	animate.clicked(tileDiv);
-	setToDefault(tileDiv, _tile);
-	stepToCheck++;
+	// move to next level if this is the last step
+	if(stepToCheck == (sequence.length-1)){
+		setTimeout(animate.toDefault, 260, tileDiv);
+		moveToNextLevel();
+	} else {
+		setToDefault(tileDiv, _tile);
+		stepToCheck++;
+	}
 }
 
 function wrongOption(tileDiv, _tile){
@@ -95,6 +125,8 @@ function tileClicked(tileDiv){
 }
 
 export function createBoard(board){
+	gameBoard = board;
+
 	for (let i = 0; i < numberOfTiles; i++) {
 		let tile = Tile(i);
 

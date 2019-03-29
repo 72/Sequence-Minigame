@@ -48,12 +48,13 @@ export function staggeredDefault(tiles) {
 	}
 }
 
-export function spin(board, tiles) {
-	for (let i = 0; i < tiles.length; i++) {
-		contract(tiles[i]);
+export function spin(board) {
+	let _tiles = board.childNodes;
+	for (let i = 0; i < _tiles.length; i++) {
+		contract(_tiles[i]);
 	}
 	setTimeout(rotateBoard, 150, board);
-	setTimeout(staggeredDefault, 1000, tiles);
+	setTimeout(staggeredDefault, 1000, _tiles);
 }
 
 export function highlightTile(item){
