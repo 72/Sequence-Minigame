@@ -100,15 +100,26 @@ function correctOption(tileDiv, _tile){
 	}
 }
 
+function stopGame(){
+	animate.hideBoard(board);
+	//reset game
+	sequence = [];
+	stepToCheck = 0;
+}
+
+
+
 function wrongOption(tileDiv, _tile){
 	disableClicks();
+	// Hide all tiles
 	tiles.map(tile =>{
-		animate.hide(tile.div);
+		animate.toneDown(tile.div);
 	})
-	animate.toDefault(tiles[stepToCheck-1].div);
+	// Highlight correct answer
+	animate.toDefault(tiles[sequence[stepToCheck]].div);
+	// Highlight wrong answer
 	animate.showError(tileDiv);
-	//stopGame();
-	//setToDefault(tileDiv, _tile);
+	setTimeout(stopGame, 2000);
 }
 
 

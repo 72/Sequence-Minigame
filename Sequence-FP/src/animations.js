@@ -11,7 +11,15 @@ let colors = {
 };
 let colorsArray = Object.values(colors);
 
+
+
 export function hide(item) {
+	item.style.transition = "all 0.55s cubic-bezier(0.25, .1, 0.25, 1.35)";
+	item.style.opacity = "0";
+	item.style.transform = "scale(0)";
+}
+
+export function toneDown(item) {
 	item.style.transition = "all 0.25s cubic-bezier(0.25, .1, 0.25, 1.35)";
 	item.style.opacity = "0.5";
 	item.style.transform = "scale(0.5)";
@@ -53,6 +61,17 @@ export function staggeredDefault(tiles) {
 	for (let i = 0; i < tiles.length; i++) {
 		setTimeout(toDefault, 60 * i, tiles[i]);
 	}
+}
+
+export function hideBoard(board){
+	let _tiles = board.childNodes;
+	for (let i = 0; i < _tiles.length; i++) {
+		hide(_tiles[i]);
+	}
+	setTimeout(function(){
+		board.style.transform = "rotate(0deg)";
+		rotation = 0;
+	}, 500);
 }
 
 export function spin(board) {
