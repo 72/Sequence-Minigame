@@ -11,9 +11,16 @@ let colors = {
 };
 let colorsArray = Object.values(colors);
 
+export function hide(item) {
+	item.style.transition = "all 0.25s cubic-bezier(0.25, .1, 0.25, 1.35)";
+	item.style.opacity = "0.5";
+	item.style.transform = "scale(0.5)";
+}
+
 export function toDefault(item) {
 	item.style.transition = "all 0.25s cubic-bezier(0.25, .1, 0.25, 1.35)";
 	item.style.backgroundColor = colors.blue;
+	item.style.opacity = "1";
 	item.style.transform = "scale(1)";
 }
 

@@ -18,6 +18,7 @@ function showChallenge(){
 			animate.highlightTile(currentTile);
 		}, 600 * i);
 	}
+	setTimeout(enableClicks, (sequence.length * 550));
 }
 
 function getRandomNumer(){
@@ -50,7 +51,6 @@ function buildSequence(){
 	for(let i = 0; i < initialSequenceLength; i++){
 		sequence.push(getRandomNumer());
 	}
-	// console.log(sequence);
 }
 
 function disableClicks(){
@@ -75,7 +75,6 @@ function moveToNextLevel(){
 		sequence.push(getRandomNumer());
 		setTimeout(function(){
 			showChallenge();
-			setTimeout(enableClicks, (sequence.length * 550));
 		}, 2000);
 	}, 600);
 }
@@ -102,8 +101,14 @@ function correctOption(tileDiv, _tile){
 }
 
 function wrongOption(tileDiv, _tile){
+	disableClicks();
+	tiles.map(tile =>{
+		animate.hide(tile.div);
+	})
+	animate.toDefault(tiles[stepToCheck-1].div);
 	animate.showError(tileDiv);
-	setToDefault(tileDiv, _tile);
+	//stopGame();
+	//setToDefault(tileDiv, _tile);
 }
 
 
@@ -141,6 +146,7 @@ export function createBoard(board){
 }
 
 export function startGame(){
+	disableClicks();
 	for (let i = 0; i < tiles.length; i++) {
 		setTimeout(animate.toDefault, 100 * i, tiles[i].div);
 	}
