@@ -19,6 +19,12 @@ export function hide(item) {
 	item.style.transform = "scale(0)";
 }
 
+export function show(item) {
+	item.style.transition = "all 0.55s cubic-bezier(0.25, .1, 0.25, 1.35)";
+	item.style.opacity = "1";
+	item.style.transform = "scale(1)";
+}
+
 export function toneDown(item) {
 	item.style.transition = "all 0.25s cubic-bezier(0.25, .1, 0.25, 1.35)";
 	item.style.opacity = "0.5";

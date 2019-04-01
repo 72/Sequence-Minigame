@@ -8,6 +8,8 @@ let tiles = [];
 let numberOfTiles = 9;
 let stepToCheck = 0;
 let gameBoard = null;
+let board = document.getElementById("board");
+let startButton = document.getElementById("startButton");
 
 
 function showChallenge(){
@@ -69,7 +71,6 @@ function enableClicks(){
 function moveToNextLevel(){
 	level++;
 	setTimeout(function(){
-		disableClicks();
 		animate.spin(gameBoard);
 		stepToCheck = 0;
 		sequence.push(getRandomNumer());
@@ -82,9 +83,7 @@ function moveToNextLevel(){
 
 function setToDefault(tileDiv, tile){
 	setTimeout(animate.toDefault, 260, tileDiv);
-	setTimeout(function(){
-		tile.clickTriggered = false;
-	}, 550);
+	setTimeout(enableClicks, 350);
 }
 
 
@@ -104,13 +103,15 @@ function stopGame(){
 	animate.hideBoard(board);
 	//reset game
 	sequence = [];
+	tiles = [];
 	stepToCheck = 0;
+	setTimeout(destroyBoard, 700);
+	setTimeout(animate.show, 1200, startButton);
 }
 
 
 
 function wrongOption(tileDiv, _tile){
-	disableClicks();
 	// Hide all tiles
 	tiles.map(tile =>{
 		animate.toneDown(tile.div);
@@ -129,7 +130,7 @@ function tileClicked(tileDiv){
 
 	// Click control
 	if(_tile.clickTriggered == false){
-		_tile.clickTriggered = true;
+		disableClicks();
 
 		// If this is the correct step
 		if(sequence[stepToCheck] == _tile.id){
@@ -140,7 +141,13 @@ function tileClicked(tileDiv){
 	}
 }
 
-export function createBoard(board){
+function destroyBoard(){
+	while(gameBoard.firstChild){
+		gameBoard.removeChild(gameBoard.firstChild);
+	}
+}
+
+function createBoard(board){
 	gameBoard = board;
 
 	for (let i = 0; i < numberOfTiles; i++) {
@@ -157,10 +164,14 @@ export function createBoard(board){
 }
 
 export function startGame(){
-	disableClicks();
-	for (let i = 0; i < tiles.length; i++) {
-		setTimeout(animate.toDefault, 100 * i, tiles[i].div);
-	}
-	setTimeout(buildSequence, 500);
-	setTimeout(showChallenge, 1250);
+	animate.hide(startButton);
+	setTimeout(createBoard, 500, board);
+	setTimeout(function(){
+		disableClicks();
+		for (let i = 0; i < tiles.length; i++) {
+			setTimeout(animate.toDefault, 100 * i, tiles[i].div);
+		}
+		setTimeout(buildSequence, 500);
+		setTimeout(showChallenge, 1250);
+	}, 800);
 }
