@@ -10,6 +10,7 @@ let stepToCheck = 0;
 let gameBoard = null;
 let board = document.getElementById("board");
 let startButton = document.getElementById("startButton");
+let message = document.getElementById("gameMessage");
 
 
 function showChallenge(){
@@ -71,6 +72,7 @@ function enableClicks(){
 function moveToNextLevel(){
 	level++;
 	setTimeout(function(){
+		message.innerHTML = "Level " + level;
 		animate.spin(gameBoard);
 		stepToCheck = 0;
 		sequence.push(getRandomNumer());
@@ -99,6 +101,10 @@ function correctOption(tileDiv, _tile){
 	}
 }
 
+function showLevel(){
+	message.innerHTML = "You reached level "+level;
+}
+
 function stopGame(){
 	animate.hideBoard(board);
 	//reset game
@@ -106,6 +112,7 @@ function stopGame(){
 	tiles = [];
 	stepToCheck = 0;
 	setTimeout(destroyBoard, 700);
+	setTimeout(showLevel, 800);
 	setTimeout(animate.show, 1200, startButton);
 }
 
@@ -149,6 +156,8 @@ function destroyBoard(){
 
 function createBoard(board){
 	gameBoard = board;
+	level = 1;
+	message.innerHTML = "Level " + level;
 
 	for (let i = 0; i < numberOfTiles; i++) {
 		let tile = Tile(i);
