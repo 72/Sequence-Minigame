@@ -7,7 +7,6 @@ body {
   grid-template-columns: repeat(3, 1fr);
   width: 330px;
   margin: 40px auto;
-  /* background-color: pink; */
 }
 
 #startButton {
@@ -33,7 +32,6 @@ body {
   width: 400px;
   margin: 40px auto;
   text-align: center;
-  /* font-weight: bold; */
   color: #333;
   font-size: 2em;
   margin-bottom: 20px;
@@ -49,9 +47,6 @@ body {
   pointer-events: auto;
   transform-origin: 50% 50%;
   perspective-origin: 50% 50%;
-  /* transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) skew(0deg, 0deg)
-    skewX(0deg) skewY(0deg) translateZ(0px) rotateX(0deg) rotateY(0deg)
-    rotateZ(0deg) translateZ(0px); */
   background-color: rgb(25, 153, 238);
   transform-style: preserve-3d;
   border-radius: 6px;
