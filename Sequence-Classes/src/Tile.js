@@ -1,19 +1,23 @@
-export default function Tile(index) {
+export default class Tile {
 
-	let tile = {
-		clickTriggered: false,
-		div: createDiv(index),
-		id: index
+	constructor(index){
+		// this.tile = {
+		// 	clickTriggered: false,
+		// 	div: createDiv(index),
+		// 	id: index
+		// }
+		this.tileDiv = null;
+
+		//return this.tile;
+		this.createDiv(index);
 	}
 
-	function createDiv(index){
-		let tileDiv = document.createElement("div");
-		tileDiv.className = "tile";
-		tileDiv.setAttribute("data-name", "tile" + index);
-		tileDiv.style.transform = "scale(0)";
-		return tileDiv;
+	createDiv(index){
+		console.log("inside");
+		this.tileDiv = document.createElement("div");
+		this.tileDiv.className = "tile";
+		this.tileDiv.setAttribute("data-name", "tile" + index);
+		this.tileDiv.style.transform = "scale(0)";
+		return this.tileDiv;
 	}
-
-	return tile;
-
 }
