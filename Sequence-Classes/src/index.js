@@ -1,10 +1,11 @@
 import Game from "./Game.js";
 
 let startButton = document.getElementById("startButton");
-let sequence = new Game();
+let sequenceGame = new Game();
 
 startButton.addEventListener("click", function(e) {
 	e.preventDefault();
-	Game.startGame();
+	//Game.startGame(sequenceGame);
+	sequenceGame.startGame();
 });
 
