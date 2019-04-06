@@ -14,9 +14,6 @@ export default class Tile {
 			orange: "rgb(242,153,74)",
 			yellow: "rgb(242,201,76)"
 		};
-		//this.tileDiv = null;
-		//return this.tile;
-		//this.createDiv(index);
 	}
 
 	createDiv(index){
@@ -28,7 +25,6 @@ export default class Tile {
 	}
 
 	toDefault(tile){
-		// console.log(tile);
 		tile.div.style.transition = "all 0.25s cubic-bezier(0.25, .1, 0.25, 1.35)";
 		tile.div.style.backgroundColor = tile.colors.blue;
 		tile.div.style.opacity = "1";

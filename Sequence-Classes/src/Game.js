@@ -23,7 +23,7 @@ export default class Game {
 	tileClicked(tile){
 		//console.log("ätTile");
 		//this.tile = new Tile(2);
-		console.log(tile);
+		console.log('here' + tile);
 	}
 
 	startGame(){
@@ -40,11 +40,12 @@ export default class Game {
 			//console.log(tile.div);
 			this.board.appendChild(tile.div);
 			this.tiles.push(tile);
+
 			tile.div.addEventListener("click", function(e) {
 				e.preventDefault();
 				let tileNumber = this.dataset.name.slice(-1);
-				console.log(tileNumber);
-				console.log(this.tiles);
+				//console.log(tileNumber);
+				this.tileClicked(tileNumber).bind(this);
 				// let _tile = this.tiles[tileNumber];
 				// console.log(tileNumber, _tile);
 				//this.tileClicked(this);
@@ -52,10 +53,17 @@ export default class Game {
 		}
 		//console.log(this.tiles);
 
-		for (let i = 0; i < this.tiles.length; i++) {
-			//console.log(this.tiles[i].div);
-			setTimeout(this.tiles[i].toDefault, 100 * i, this.tiles[i]);
-		}
+		// For
+		// for (let i = 0; i < this.tiles.length; i++) {
+		// 	setTimeout(this.tiles[i].toDefault, 100 * i, this.tiles[i]);
+		// }
+
+		// map
+		this.tiles.map((tile, i) => {
+			//console.log(tile, i);
+			setTimeout(tile.toDefault, 100*i, tile);
+		});
+
 
 		//console.log(this.board);
 	}
