@@ -5,7 +5,6 @@ let sequenceGame = new Game();
 
 startButton.addEventListener("click", function(e) {
 	e.preventDefault();
-	//Game.startGame(sequenceGame);
 	sequenceGame.startGame();
 });
 

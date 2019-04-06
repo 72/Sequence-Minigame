@@ -1,4 +1,5 @@
 import Tile from "./Tile.js";
+import * as Animate from "./Animations.js";
 
 export default class Game {
 	
@@ -15,15 +16,72 @@ export default class Game {
 		this.tiles = [];
 		this.numberOfTiles = 9;
 		this.stepToCheck = 0;
-
-		//Init
-		//this.createTile();
 	}
 
-	tileClicked(tile){
-		//console.log("ätTile");
-		//this.tile = new Tile(2);
-		console.log('here' + tile);
+	getRandomNumber(){
+		// hero number
+		let random = (Math.floor(Math.random()*9));
+		// first time
+		if(this.sequence[this.sequence.length-1] == undefined){
+			return random;
+		}
+		// subsequent times
+		else {
+			// check previous number
+			// if previous number is the same...
+			if(random == this.sequence[this.sequence.length-1]){
+				// check whether it is also the same as the number before that one.
+				if(random == this.sequence[this.sequence.length-2]){
+					this.getRandomNumber();
+				} else {
+					return random;
+				}
+			}
+			// else, return number.
+			else {
+				return random;
+			}
+		}
+	}
+	
+	buildSequence(game) {
+		for(let i = 0; i < game.initialSequenceLength; i++){
+			game.sequence.push(game.getRandomNumber());
+		}
+		//console.log(game.sequence);
+	}
+
+	showChallenge(game){
+		game.sequence.map((number, i)=>{
+			setTimeout(() =>{
+				let currentStep = game.sequence[i];
+				let currentTile = game.tiles[currentStep].div;
+				Animate.highlightTile(currentTile);
+			}, 600*i);
+		})
+	}
+
+	static tileClicked(tile){
+		let tileNumber = tile.dataset.name.slice(-1);
+		Animate.clicked(tile);
+		setTimeout(Animate.toDefault, 260, tile);
+	}
+
+	static createBoard(game){
+		// Create Board
+		game.level = 1;
+		game.message.innerHTML = "Level " + game.level;
+
+		for (let i = 0; i < game.numberOfTiles; i++) {
+			let tile = new Tile(i);
+			game.board.appendChild(tile.div);
+			game.tiles.push(tile);
+
+			tile.div.addEventListener("click", function(e) {
+				e.preventDefault();
+				Game.tileClicked(this);
+			});
+		}
 	}
 
 	startGame(){
@@ -31,64 +89,16 @@ export default class Game {
 		this.board = document.getElementById("board");
 		this.startButton = document.getElementById("startButton");
 		this.message = document.getElementById("gameMessage");
-		// Create Board
-		this.level = 1;
-		this.message.innerHTML = "Level " + this.level;
-		//console.log(this.numberOfTiles);
-		for (let i = 0; i < this.numberOfTiles; i++) {
-			let tile = new Tile(i);
-			//console.log(tile.div);
-			this.board.appendChild(tile.div);
-			this.tiles.push(tile);
-
-			tile.div.addEventListener("click", function(e) {
-				e.preventDefault();
-				let tileNumber = this.dataset.name.slice(-1);
-				//console.log(tileNumber);
-				this.tileClicked(tileNumber).bind(this);
-				// let _tile = this.tiles[tileNumber];
-				// console.log(tileNumber, _tile);
-				//this.tileClicked(this);
+		// Init
+		Animate.hide(startButton);
+		setTimeout(Game.createBoard, 500, this);
+		setTimeout(() => {
+			//disableClicks();
+			this.tiles.map((tile, i) => {
+				setTimeout(tile.toDefault, 100*i, tile);
 			});
-		}
-		//console.log(this.tiles);
-
-		// For
-		// for (let i = 0; i < this.tiles.length; i++) {
-		// 	setTimeout(this.tiles[i].toDefault, 100 * i, this.tiles[i]);
-		// }
-
-		// map
-		this.tiles.map((tile, i) => {
-			//console.log(tile, i);
-			setTimeout(tile.toDefault, 100*i, tile);
-		});
-
-
-		//console.log(this.board);
+			setTimeout(this.buildSequence, 500, this);
+			setTimeout(this.showChallenge, 1250, this);
+		}, 800);
 	}
-
-
-	// static startGame(game){
-	// 	game.board = document.getElementById("board");
-	// 	game.startButton = document.getElementById("startButton");
-	// 	game.message = document.getElementById("gameMessage");
-	// 	// Create Board
-	// 	game.level = 1;
-	// 	game.message.innerHTML = "Level " + game.level;
-	// 	console.log(game.numberOfTiles);
-	// 	for (let i = 0; i < game.numberOfTiles; i++) {
-	// 		let tile = new Tile(i);
-	// 		console.log(tile.div);
-	// 		game.board.appendChild(tile.div);
-	// 		// this.tiles.push(tile);
-	// 		// tile.div.addEventListener("click", function(e) {
-	// 		// 	e.preventDefault();
-	// 		// 	//console.log(this);
-	// 		// 	tileClicked(this);
-	// 		// });
-	// 	}
-
-	// 	//console.log(this.board);
-	// }
 }
