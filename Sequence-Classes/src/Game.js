@@ -61,10 +61,35 @@ export default class Game {
 		})
 	}
 
-	static tileClicked(tile){
-		let tileNumber = tile.dataset.name.slice(-1);
+	correctOption(tile){
 		Animate.clicked(tile);
-		setTimeout(Animate.toDefault, 260, tile);
+		//console.log(this);
+		//move to next level if this is the last step
+		if(this.stepToCheck == (this.sequence.length-1)){
+			console.log("at if");
+			// setTimeout(Animate.toDefault, 260, tile);
+			// this.moveToNextLevel();
+		} else {
+			console.log("at else");
+			setTimeout(Animate.toDefault, 260, tile);
+			//tile.toDefault(tile);
+			this.stepToCheck++;
+		}
+	}
+
+	static tileClicked(tile, game){
+		let tileNumber = tile.dataset.name.slice(-1);
+		// Get Tile from data
+		//console.log(tile, tileNumber);
+
+		if(game.sequence[game.stepToCheck] == tileNumber){
+			//console.log("correct");
+			game.correctOption(tile);
+		} else {
+			console.log("incorrect");
+		}
+
+		//setTimeout(Animate.toDefault, 260, tile);
 	}
 
 	static createBoard(game){
@@ -79,7 +104,7 @@ export default class Game {
 
 			tile.div.addEventListener("click", function(e) {
 				e.preventDefault();
-				Game.tileClicked(this);
+				Game.tileClicked(this, game);
 			});
 		}
 	}
