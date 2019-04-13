@@ -61,14 +61,26 @@ export default class Game {
 		})
 	}
 
+	moveToNextLevel(){
+		this.level++;
+		setTimeout(function(){
+			this.message.innerHTML = "Level " + this.level;
+			Animate.spin(this.board);
+			this.stepToCheck = 0;
+			this.sequence.push(this.getRandomNumer());
+			setTimeout(function(){
+				this.showChallenge();
+			}, 2000);
+		}, 600);
+	}
+
 	correctOption(tile){
 		Animate.clicked(tile);
 		//console.log(this);
 		//move to next level if this is the last step
 		if(this.stepToCheck == (this.sequence.length-1)){
-			console.log("at if");
-			// setTimeout(Animate.toDefault, 260, tile);
-			// this.moveToNextLevel();
+			setTimeout(Animate.toDefault, 260, tile);
+			this.moveToNextLevel();
 		} else {
 			console.log("at else");
 			setTimeout(Animate.toDefault, 260, tile);
