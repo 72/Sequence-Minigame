@@ -89,6 +89,16 @@ export default class Game {
 		}
 	}
 
+	wrongOption(tile){
+		// Hide all others
+		this.tiles.map(item =>{
+			Animate.toneDown(item.div);
+		})
+		// Show error
+		Animate.showError(tile);
+		Animate.toDefault(this.tiles[this.sequence[this.stepToCheck]].div);
+	}
+
 	static tileClicked(tile, game){
 		let tileNumber = tile.dataset.name.slice(-1);
 		// Get Tile from data
@@ -98,13 +108,14 @@ export default class Game {
 			//console.log("correct");
 			game.correctOption(tile);
 		} else {
-			console.log("incorrect");
+			game.wrongOption(tile);
+			//console.log("incorrect");
 		}
 
 		//setTimeout(Animate.toDefault, 260, tile);
 	}
 
-	static createBoard(game){
+	createBoard(game){
 		// Create Board
 		game.level = 1;
 		game.message.innerHTML = "Level " + game.level;
@@ -128,7 +139,7 @@ export default class Game {
 		this.message = document.getElementById("gameMessage");
 		// Init
 		Animate.hide(startButton);
-		setTimeout(Game.createBoard, 500, this);
+		setTimeout(this.createBoard, 500, this);
 		setTimeout(() => {
 			//disableClicks();
 			this.tiles.map((tile, i) => {
