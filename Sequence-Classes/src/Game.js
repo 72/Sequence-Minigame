@@ -51,11 +51,26 @@ export default class Game {
 		//console.log(game.sequence);
 	}
 
-	showChallenge(game){
-		game.sequence.map((number, i)=>{
+	/** 
+	 * Leaving this function for reference. Explanation is worthwhile for future self:
+	 * This implementation bite me because I was forced to pass the game instance every time I called the function. I tried to refactor it using 'this' instance of the game instance, however, I had to go down the rabbit hole of the different uses of 'this' (http://exploringjs.com/es6/ch_arrow-functions.html).
+	 * I refactored it to use ES6 function arrow. And may need to update a bunch of other things in this file now.
+	*/
+	// showChallenge(game){
+	// 	game.sequence.map((number, i)=>{
+	// 		setTimeout(() =>{
+	// 			let currentStep = game.sequence[i];
+	// 			let currentTile = game.tiles[currentStep].div;
+	// 			Animate.highlightTile(currentTile);
+	// 		}, 600*i);
+	// 	})
+	// }
+
+	showChallenge(){
+		this.sequence.map((number, i)=>{
 			setTimeout(() =>{
-				let currentStep = game.sequence[i];
-				let currentTile = game.tiles[currentStep].div;
+				let currentStep = this.sequence[i];
+				let currentTile = this.tiles[currentStep].div;
 				Animate.highlightTile(currentTile);
 			}, 600*i);
 		})
@@ -63,12 +78,18 @@ export default class Game {
 
 	moveToNextLevel(){
 		this.level++;
-		setTimeout(function(){
+		// This format of function within a timeout loses the context of 'this' and catches the window object.
+		//setTimeout(function(){}, 500);
+		// - - - - - - - - - - 
+		// Use arrow function instead ()=>{} to correctly point to the expected 'this' element (instance, not window object).
+		//setTimeout(()=>{}, 500);
+		setTimeout(() => {
+			console.log(this, this.level);
 			this.message.innerHTML = "Level " + this.level;
 			Animate.spin(this.board);
 			this.stepToCheck = 0;
-			this.sequence.push(this.getRandomNumer());
-			setTimeout(function(){
+			//this.sequence.push(getRandomNumer());
+			setTimeout(() => {
 				this.showChallenge();
 			}, 2000);
 		}, 600);
@@ -146,7 +167,12 @@ export default class Game {
 				setTimeout(tile.toDefault, 100*i, tile);
 			});
 			setTimeout(this.buildSequence, 500, this);
-			setTimeout(this.showChallenge, 1250, this);
+			//setTimeout(this.showChallenge, 1250, this);
+			//console.log(this, this.showChallenge);
+			setTimeout(()=>{
+				this.showChallenge();
+			}, 1250);
+			// setTimeout(this.showChallenge, 1250);
 		}, 800);
 	}
 }
