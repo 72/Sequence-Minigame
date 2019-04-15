@@ -95,6 +95,16 @@ export default class Game {
 				Animate.highlightTile(currentTile);
 			}, 600*i);
 		})
+		setTimeout(()=>{
+			this.enableClicks();
+		}, (this.sequence.length * 550));
+	}
+
+	setToDefault(tile){
+		setTimeout(Animate.toDefault, 260, tile);
+		setTimeout(() => {
+			this.enableClicks();
+		}, 350);
 	}
 
 
@@ -118,17 +128,27 @@ export default class Game {
 
 	correctOption(tile){
 		Animate.clicked(tile);
-		//console.log(this);
 		//move to next level if this is the last step
 		if(this.stepToCheck == (this.sequence.length-1)){
 			setTimeout(Animate.toDefault, 260, tile);
 			this.moveToNextLevel();
 		} else {
-			console.log("at else");
-			setTimeout(Animate.toDefault, 260, tile);
-			//tile.toDefault(tile);
+			this.setToDefault(tile);
+			//setTimeout(Animate.toDefault, 260, tile);
 			this.stepToCheck++;
 		}
+	}
+
+	disableClicks(){
+		this.tiles.map(tile => {
+			tile.clickTriggered = true;
+		});
+	}
+
+	enableClicks(){
+		this.tiles.map(tile => {
+			tile.clickTriggered = false;
+		});
 	}
 
 	wrongOption(tile){
@@ -143,18 +163,18 @@ export default class Game {
 
 	static tileClicked(tile, game){
 		let tileNumber = tile.dataset.name.slice(-1);
-		// Get Tile from data
-		//console.log(tile, tileNumber);
+		let triggered = game.tiles[tileNumber].clickTriggered;
 
-		if(game.sequence[game.stepToCheck] == tileNumber){
-			//console.log("correct");
-			game.correctOption(tile);
-		} else {
-			game.wrongOption(tile);
-			//console.log("incorrect");
+		if(triggered == false){
+			game.disableClicks();
+			if(game.sequence[game.stepToCheck] == tileNumber){
+				//console.log("correct");
+				game.correctOption(tile);
+			} else {
+				//console.log("incorrect");
+				game.wrongOption(tile);
+			}
 		}
-
-		//setTimeout(Animate.toDefault, 260, tile);
 	}
 
 	createBoard(game){
