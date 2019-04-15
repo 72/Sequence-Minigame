@@ -55,16 +55,37 @@ export default class Game {
 	 * Leaving this function for reference. Explanation is worthwhile for future self:
 	 * This implementation bite me because I was forced to pass the game instance every time I called the function. I tried to refactor it using 'this' instance of the game instance, however, I had to go down the rabbit hole of the different uses of 'this' (http://exploringjs.com/es6/ch_arrow-functions.html).
 	 * I refactored it to use ES6 function arrow. And may need to update a bunch of other things in this file now.
+	
+	 // What I had:
+	 showChallenge(game){
+		game.sequence.map((number, i)=>{
+			setTimeout(() =>{
+				let currentStep = game.sequence[i];
+				let currentTile = game.tiles[currentStep].div;
+				Animate.highlightTile(currentTile);
+			}, 600*i);
+		})
+	}
+	// Abstract - Before
+	showChallenge(){
+		this.sequence.map(function(number, i){
+			setTimeout(function(){
+				this.generateRandomNumber();
+				// toDo
+			}, 500);
+		})
+	}
+
+	// Abstract - ES6
+	showChallenge(){
+		this.sequence.map((number, i) => {
+			setTimeout(() => {
+				this.generateRandomNumber();
+				// toDo
+			}, 500);
+		})
+	}
 	*/
-	// showChallenge(game){
-	// 	game.sequence.map((number, i)=>{
-	// 		setTimeout(() =>{
-	// 			let currentStep = game.sequence[i];
-	// 			let currentTile = game.tiles[currentStep].div;
-	// 			Animate.highlightTile(currentTile);
-	// 		}, 600*i);
-	// 	})
-	// }
 
 	showChallenge(){
 		this.sequence.map((number, i)=>{
@@ -76,6 +97,7 @@ export default class Game {
 		})
 	}
 
+
 	moveToNextLevel(){
 		this.level++;
 		// This format of function within a timeout loses the context of 'this' and catches the window object.
@@ -84,11 +106,10 @@ export default class Game {
 		// Use arrow function instead ()=>{} to correctly point to the expected 'this' element (instance, not window object).
 		//setTimeout(()=>{}, 500);
 		setTimeout(() => {
-			console.log(this, this.level);
 			this.message.innerHTML = "Level " + this.level;
 			Animate.spin(this.board);
 			this.stepToCheck = 0;
-			//this.sequence.push(getRandomNumer());
+			this.sequence.push(this.getRandomNumber());
 			setTimeout(() => {
 				this.showChallenge();
 			}, 2000);
