@@ -151,6 +151,24 @@ export default class Game {
 		});
 	}
 
+	stopGame(){
+		Animate.hideBoard(this.board);
+		// Reset
+		this.sequence = [];
+		this.tiles = [];
+		this.stepToCheck = 0;
+		setTimeout(()=>{
+			this.destroyBoard();
+		}, 700);
+		
+	}
+
+	destroyBoard(){
+		while(this.board.firstChild){
+			this.board.removeChild(this.board.firstChild);
+		}
+	}
+
 	wrongOption(tile){
 		// Hide all others
 		this.tiles.map(item =>{
@@ -159,6 +177,9 @@ export default class Game {
 		// Show error
 		Animate.showError(tile);
 		Animate.toDefault(this.tiles[this.sequence[this.stepToCheck]].div);
+		setTimeout(()=>{
+			this.stopGame();
+		}, 2000);
 	}
 
 	static tileClicked(tile, game){
