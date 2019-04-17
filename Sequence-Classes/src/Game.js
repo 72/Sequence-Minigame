@@ -151,6 +151,10 @@ export default class Game {
 		});
 	}
 
+	showLevelReached(){
+		this.message.innerHTML = "You reached level " + this.level;
+	}
+
 	stopGame(){
 		Animate.hideBoard(this.board);
 		// Reset
@@ -160,7 +164,12 @@ export default class Game {
 		setTimeout(()=>{
 			this.destroyBoard();
 		}, 700);
-		
+		setTimeout(()=>{
+			this.showLevelReached();
+		}, 800);
+		setTimeout(() => {
+			Animate.show(this.startButton);
+		}, 1200)
 	}
 
 	destroyBoard(){
@@ -229,12 +238,9 @@ export default class Game {
 				setTimeout(tile.toDefault, 100*i, tile);
 			});
 			setTimeout(this.buildSequence, 500, this);
-			//setTimeout(this.showChallenge, 1250, this);
-			//console.log(this, this.showChallenge);
 			setTimeout(()=>{
 				this.showChallenge();
 			}, 1250);
-			// setTimeout(this.showChallenge, 1250);
 		}, 800);
 	}
 }
