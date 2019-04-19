@@ -6,6 +6,7 @@ To install and run any of these projects, go to the desired folder and type
 
 ```
 npm install
+npm install -g live-server
 npm run serve
 ```
 
@@ -14,7 +15,7 @@ npm run serve
 #### **Sequence-FP**
 Contains the mini game made from a Functional Programming approach. (No use of Classes)
 
-#### **Sequence-Classes** (coming up)
+#### **Sequence-Classes**
 Contains the mini game made from an OOP approach. (Use of Classes)
 
 #### **Sequence-React** (coming up)
