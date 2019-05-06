@@ -10,11 +10,7 @@ function GameButton(props){
 
 function Tile(props){
 
-	let tileDiv = document.createElement("div");
-	tileDiv.className = "tile";
-	tileDiv.setAttribute("data-name", "tile" + props.index);
-	tileDiv.style.transform = "scale(0)";
-	return tileDiv;
+	return <div className={props.className} data-name={props.name}></div>;
 
 }
 
@@ -51,11 +47,19 @@ function GameBoard(props){
 	// 		// });
 	// 	}
 	// }
+	// const tiles = new Array(9);
+	const tilesList = [0,1,2,3,4,5,6,7,8].map((i) =>(
+		<Tile
+			key={i}
+			className="tile"
+			name={"tile"+i}
+		/>
+	));
 
 	return(
 		<div id="board" className="">
-			{/* {createTiles()} */}
-			<div className="tile" data-name="tile0"></div>
+			{tilesList}
+			{/* <div className="tile" data-name="tile0" onClick={(e)=>this.handleClickedTitle(e)}></div>
 			<div className="tile" data-name="tile1"></div>
 			<div className="tile" data-name="tile2"></div>
 			<div className="tile" data-name="tile3"></div>
@@ -63,7 +67,7 @@ function GameBoard(props){
 			<div className="tile" data-name="tile5"></div>
 			<div className="tile" data-name="tile6"></div>
 			<div className="tile" data-name="tile7"></div>
-			<div className="tile" data-name="tile8"></div>
+			<div className="tile" data-name="tile8"></div> */}
 		</div>
 	);
 }
@@ -196,9 +200,9 @@ export default class Board extends React.Component {
 			this.buildSequence()
 		}, 1000);
 
-		setTimeout(()=>{
-			this.showChallenge()
-		}, 2200);
+		// setTimeout(()=>{
+		// 	this.showChallenge()
+		// }, 2500);
 	}
 
 	render(){
