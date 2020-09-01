@@ -48,9 +48,9 @@ export function clicked(item) {
 	// Leaving this here for future reference: 
 	// Apply a random color each time the function is called.
 	//let randomColor = colorsArray[(colorsArray.length * Math.random() << 0)];
+	//item.style.backgroundColor = randomColor;
 	item.style.transition = "all 0.33s cubic-bezier(0.25, .1, 0.25, 1)";
 	item.style.backgroundColor = colors.pink;
-	//item.style.backgroundColor = randomColor;
 	item.style.transform = "scale(0.45)";
 }
 
